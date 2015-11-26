@@ -1,33 +1,53 @@
-Nette Sandbox
-=============
+Make /images /log /temp writable by chmod -R 777
 
-Sandbox is a pre-packaged and pre-configured Nette Framework application
-that you can use as the skeleton for your new applications.
+Remove images from /images
 
-[Nette](https://nette.org) is a popular tool for PHP web development.
-It is designed to be the most usable and friendliest as possible. It focuses
-on security and performance and is definitely one of the safest PHP frameworks.
+In subdirectory set proper RewriteBase
+
+Create local config in /app/config/config.local.neon
+
+Create database schema.
+
+Import teams into table team.
+
+------------------------------------------------------------
+
+-- Adminer 4.2.0 MySQL dump
+
+SET NAMES utf8mb4;
+SET time_zone = '+00:00';
+SET foreign_key_checks = 0;
+SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
+
+DROP TABLE IF EXISTS `likes`;
+CREATE TABLE `likes` (
+  `id_team` int(10) unsigned NOT NULL,
+  `id_post` int(11) NOT NULL,
+  UNIQUE KEY `id_team_id_post` (`id_team`,`id_post`),
+  KEY `id_post` (`id_post`),
+  CONSTRAINT `likes_ibfk_1` FOREIGN KEY (`id_team`) REFERENCES `team` (`id_team`) ON DELETE CASCADE,
+  CONSTRAINT `likes_ibfk_2` FOREIGN KEY (`id_post`) REFERENCES `post` (`id_post`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 
-Installing
-----------
-
-The best way to install Sandbox is using Composer. If you don't have Composer yet, download
-it following [the instructions](https://doc.nette.org/composer). Then use command:
-
-		composer create-project nette/sandbox my-app
-		cd my-app
-
-Make directories `temp` and `log` writable. Navigate your browser
-to the `www` directory and you will see a welcome page. PHP 5.4 allows
-you run `php -S localhost:8888 -t www` to start the web server and
-then visit `http://localhost:8888` in your browser.
-
-It is CRITICAL that whole `app`, `log` and `temp` directories are NOT accessible
-directly via a web browser! See [security warning](https://nette.org/security-warning).
+DROP TABLE IF EXISTS `post`;
+CREATE TABLE `post` (
+  `id_post` int(11) NOT NULL AUTO_INCREMENT,
+  `id_team` int(10) unsigned NOT NULL,
+  `likes` int(10) unsigned NOT NULL DEFAULT '0',
+  `inserted` datetime NOT NULL,
+  PRIMARY KEY (`id_post`),
+  KEY `id_team` (`id_team`),
+  CONSTRAINT `post_ibfk_1` FOREIGN KEY (`id_team`) REFERENCES `team` (`id_team`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 
-License
--------
-- Nette: New BSD License or GPL 2.0 or 3.0 (https://nette.org/license)
-- Adminer: Apache License 2.0 or GPL 2 (https://www.adminer.org)
+DROP TABLE IF EXISTS `team`;
+CREATE TABLE `team` (
+  `id_team` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) COLLATE utf8_czech_ci NOT NULL,
+  `password` varchar(160) COLLATE utf8_czech_ci NOT NULL,
+  PRIMARY KEY (`id_team`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+
+ALTER TABLE `team` ADD UNIQUE `name` (`name`);

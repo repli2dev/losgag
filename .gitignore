@@ -1,0 +1,7 @@
+images/*
+temp/*
+!temp/.htaccess
+log/*
+!log/.htaccess
+.idea
+app/config.local.neon

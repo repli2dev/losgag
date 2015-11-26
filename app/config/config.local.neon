@@ -1,9 +1,0 @@
-parameters:
-
-
-database:
-	dsn: 'mysql:host=localhost;dbname=losgag'
-	user: root
-	password:
-	options:
-		lazy: yes
