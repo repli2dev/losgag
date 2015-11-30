@@ -42,7 +42,7 @@ class PostManager extends Nette\Object
 	public function getTrending()
 	{
 		return $this->database->query('
-			SELECT * FROM post WHERE id_team NOT IN (SELECT id_team FROM post WHERE likes >= ?) ORDER BY RAND()
+			SELECT * FROM post WHERE id_team NOT IN (SELECT id_team FROM post WHERE likes >= ?) ORDER BY inserted DESC
 		', self::MIN_LIKES)->fetchAll();
 	}
 
