@@ -1,44 +1,47 @@
 
 
 {block content}
-{if isset($password) && $password}
-	<div class="ok">Vaše odměna... Heslo je: {$password}</div>
-{/if}
-<p><b>Nahrajte nám sem nějaký pěkný obrázek/fotku/memečko/gag, který se bude líbit a vaše odměna vás nemine! Nezapomínejte obnovovat stránku pro nové přírustky.</b> <a href="{plink Sign:out}">Odhlásit</a></p>
-<p>Pravidla:</p>
-<ul>
-	<li>Každý tým může nahrát až 10 obrázků.</li>
-	<li>Povolené formáty jsou: JPEG, PNG, GIF.</li>
-	<li>Velikost obrázku musí být do 2 MB.</li>
-	<li>Nevhodné obrázky (urážlivé,...) budou smazány a tým bude diskvalifikován.</li>
-</ul>
+	{if isset($password) && $password}
+		<div class="ok">Vaše odměna... Heslo je: {$password}</div>
+	{/if}
+	<div class="main-block">
+		<p>Tým: {$user->getIdentity()->name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nahráno {$uploadedCount}/10 obrázků&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{plink Sign:out}">Odhlásit</a></p>
+		<p><b>Nahrajte nám sem nějaký pěkný obrázek/fotku/memečko/gag, který se bude líbit a vaše odměna vás nemine! Nezapomínejte obnovovat stránku pro nové přírustky.</b></p>
+		<p>Pravidla:</p>
+		<ul>
+			<li>Každý tým může nahrát až 10 obrázků.</li>
+			<li>Povolené formáty jsou: JPEG, PNG, GIF.</li>
+			<li>Velikost obrázku musí být do 2 MB.</li>
+			<li>Nevhodné obrázky (urážlivé,...) budou smazány a tým bude diskvalifikován.</li>
+		</ul>
+	</div>
 
-<div class="hr" />
 
-{control uploadForm}
+	<div class="main-block">
+		{control uploadForm}
+	</div>
 
-<div class="hr" />
+	<div class="main-block">
+		<h1>Právě v kurzu (aka trendy)</h1>
+		{if count($trending) > 0}
+			{foreach $trending as $post}
+				{include 'item.latte', item => $post, likes => $likes}
+			{/foreach}
+		{else}
+			<p><i>Momentálně není nic zajímavého a trendy ;-)</i></p>
+		{/if}
+	</div>
 
-<h2>Právě v kurzu (aka trendy)</h2>
 
-{if count($trending) > 0}
-	{foreach $trending as $post}
-		{include 'item.latte', item => $post}
-	{/foreach}
-{else}
-	<p><i>Momentálně není nic zajímavého a trendy ;-)</i></p>
-{/if}
-
-<div class="hr" />
-
-<h2>Vše od začátku věků</h2>
-
-{if count($history) > 0}
-	{foreach $history as $post}
-		{include 'item.latte', item => $post}
-	{/foreach}
-{else}
-	<p><i>Historie čeká na odvážné!</i></p>
-{/if}
+	<div class="main-block">
+		<h1>Vše od začátku věků</h1>
+		{if count($history) > 0}
+			{foreach $history as $post}
+				{include 'item.latte', item => $post}
+			{/foreach}
+		{else}
+			<p><i>Historie čeká na odvážné!</i></p>
+		{/if}
+	</div>
 
 {/block}

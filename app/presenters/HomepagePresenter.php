@@ -35,6 +35,8 @@ class HomepagePresenter extends BasePresenter
 		if ($this->posts->isOverLimit($this->user->getId())) {
 			$this->template->password = self::PASSWORD;
 		}
+		$this->template->uploadedCount = $this->posts->getTeamCount($this->user->getId());
+		$this->template->likes = $this->posts->getLikes($this->user->getId());
 	}
 
 	protected function createComponentUploadForm()
@@ -56,7 +58,7 @@ class HomepagePresenter extends BasePresenter
 		if ($out) {
 			$this->flashMessage('Hlasování provedeno.', 'ok');
 		} else {
-			$this->flashMessage('Neplatné hlasování.', 'nok');
+			$this->flashMessage('Neplatné hlasování (opakované hlasování...).', 'nok');
 		}
 		$this->redirect('Homepage:');
 	}

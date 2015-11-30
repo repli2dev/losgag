@@ -6,7 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0">
 	<meta name="description" content="InterLoS - Internetova Logicka Soutez" />
 	<link href="{$basePath}/css/stylesheet.css" media="screen" rel="stylesheet" type="text/css" />
-	<link rel="icon" href="{$basePath}/design/favicon.ico" type="image/x-icon" />
+	<link href="{$basePath}/css/featherlight.min.css" type="text/css" rel="stylesheet" />
+	<link rel="icon" href="{$basePath}/css/favicon.ico" type="image/x-icon" />
 	<title>{ifset title}{include title|striptags} | {/ifset}L9 LosGAG</title>
 	{block head}{/block}
 </head>
@@ -27,16 +28,15 @@
 
 		<div class="main">
 			<div class="contents">
-				<div class="main-block">
-					<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+				<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
 
-					{include content}
-
-					{block scripts}
-					<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-					<script src="//nette.github.io/resources/js/netteForms.min.js"></script>
+				{include content}
+				{block scripts}
+					<script src="{$basePath}/css/jquery-1.11.3.min.js"></script>
+					<script src="{$basePath}/css/netteForms.min.js"></script>
 					<script src="{$basePath}/js/main.js"></script>
-				</div>
+					<script src="{$basePath}/css/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+				{/block}
 			</div>
 		</div>
 

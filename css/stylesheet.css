@@ -96,7 +96,7 @@ h1.lefted { float: left; }
 .gag img.main2 { max-height: 500px; max-width: 500px; border: 3px solid rgba(216,181,94,0.25); }
 .gag img.likes { margin-right: 5px; top: 4px; position: relative; }
 .gag span.info { text-align: left; display: block; font-size: 1.4em; font-weight: bold;}
-.gag span.info span.date { float: right; font-size: inherit; font-weight: normal; }
+.gag span.info span.date { float: right; font-size: inherit; font-weight: normal; font-family: inherit; }
 span.vandalism {
 	font-size: 4em; color: red; text-decoration: none; font-weight: bold; font-family: "Comic Sans MS";
 	-webkit-transform: rotate(340deg);

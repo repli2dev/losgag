@@ -1,7 +1,12 @@
 <div class="gag" id="post-{$item->id_post}">
-	<img class="main2" src="{$basePath}/images/{$item->id_post}" alt="Gag, gag!" />
+	<a href="{$basePath}/images/{$item->id_post}" data-featherlight="image"><img class="main2" src="{$basePath}/images/{$item->id_post}" alt="Gag, gag!" /></a>
 	<span class="info">
-		<img src="{$basePath}/css/tracks.png" width="20px" class="likes" />{$item->likes}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{link like!, $item->id_post}">Olosovat!</a>
+		<img src="{$basePath}/css/tracks.png" width="20px" class="likes" />{$item->likes}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		{if in_array($item->id_post, $likes)}
+			Olosováno!
+		{else}
+			<a href="{link like!, $item->id_post}">Olosovat!</a>
+		{/if}
 		<span class="date">{$item->inserted|date:"j. n. Y H:i:s"}</span>
 	</span>
 </div>

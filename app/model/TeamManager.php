@@ -39,10 +39,10 @@ class TeamManager extends Nette\Object implements Nette\Security\IAuthenticator
 		$row = $this->database->table(self::TABLE_NAME)->where(self::COLUMN_NAME, $username)->fetch();
 
 		if (!$row) {
-			throw new AuthenticationException('The username is incorrect.', self::IDENTITY_NOT_FOUND);
+			throw new AuthenticationException('Tento tým neexistuje.', self::IDENTITY_NOT_FOUND);
 
 		} elseif ($row[self::COLUMN_PASSWORD_HASH] != sha1($password) ) {
-			throw new AuthenticationException('The password is incorrect.', self::INVALID_CREDENTIAL);
+			throw new AuthenticationException('Heslo nesouhlasí.', self::INVALID_CREDENTIAL);
 
 		}
 

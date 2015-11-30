@@ -60,6 +60,13 @@ class PostManager extends Nette\Object
 		', $teamId)->getRowCount();
 	}
 
+	public function getLikes($teamId)
+	{
+		return $this->database->query('
+			SELECT * FROM likes WHERE id_team = ?
+		', $teamId)->fetchPairs(NULL, 'id_post');
+	}
+
 	public function isOverLimit($teamId)
 	{
 		return $this->database->query('
