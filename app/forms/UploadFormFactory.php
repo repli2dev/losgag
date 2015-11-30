@@ -8,6 +8,7 @@ use Nette\Http\FileUpload;
 use Nette\InvalidStateException;
 use Nette\Object;
 use Nette\Security\User;
+use Nette\Utils\Image;
 
 
 class UploadFormFactory extends Object
@@ -56,6 +57,11 @@ class UploadFormFactory extends Object
 		}
 		if ($file->getTemporaryFile() == '') {
 			$form->addError('Nahrávání obrázku selhalo, zřejmě byla překročena velikost.');
+			return;
+		}
+		$temp = $file->getImageSize();
+		if ($temp[0] > 2048 || $temp[1] > 1536) {
+			$form->addError('Nahrávání obrázku selhalo, bylo překročeno maximální rozlišení obrázku 2048x1536.');
 			return;
 		}
 		if ($this->postManager->getTeamCount($this->user->getId()) > self::UPLOAD_LIMIT) {
